@@ -110,12 +110,15 @@ class DataTable extends Widget
     protected function initColumns()
     {
         if (isset($this->_options['columns'])) {
+            $labels = $this->_options['data'][0]->attributeLabels();
             foreach ($this->_options['columns'] as $key => $value) {
                 if (!is_array($value)) {
                     $value = [
                         'class' => DataTableColumn::class,
                         'attribute' => $value,
-                        'label' => Inflector::camel2words($value)
+                        'label' => array_key_exists($value, $labels)
+                            ? $labels[$value]
+                            : Inflector::camel2words($value)
                     ];
                 }
                 if (isset($value['type'])) {
