@@ -110,15 +110,15 @@ class DataTable extends Widget
     protected function initColumns()
     {
         if (isset($this->_options['columns'])) {
-            $labels = $this->_options['data'][0]->attributeLabels();
+            $demoObject = $this->_options['data'][0];
             foreach ($this->_options['columns'] as $key => $value) {
                 if (!is_array($value)) {
                     $value = [
                         'class' => DataTableColumn::class,
                         'attribute' => $value,
-                        'label' => array_key_exists($value, $labels)
-                            ? $labels[$value]
-                            : Inflector::camel2words($value)
+                        'label' => $demoObject instanceof \yii\base\Model
+                             ? $demoObject->getAttributeLabel($value)
+                             : Inflector::camel2words($value)
                     ];
                 }
                 if (isset($value['type'])) {
