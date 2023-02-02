@@ -120,7 +120,7 @@ class DataTable extends Widget
     protected function initColumns()
     {
         if (isset($this->_options['columns'])) {
-            $demoObject = (count($this->_options['data'])) ? $this->_options['data'][0] : null;
+            $demoObject = (array_key_exists('data', $this->_options) && count($this->_options['data'])) ? $this->_options['data'][0] : null;
             foreach ($this->_options['columns'] as $key => $value) {
                 if (is_string($value)) {
                     $this->_options['columns'][$key] = ['data' => $value, 'title' => $demoObject instanceof \yii\base\Model
